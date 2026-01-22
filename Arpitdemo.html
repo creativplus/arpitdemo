@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arpit – AI Calling Agent Demo | Creativplus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Favicons -->
+ <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='256' height='256' viewBox='0 0 512 512' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='512' height='512' rx='120' fill='%23FF4B4B' /%3E%3Cg transform='translate(256, 256) scale(1.35)'%3E%3Crect x='-40' y='-100' width='80' height='200' rx='40' transform='rotate(-45)' stroke='white' stroke-width='48' fill='none' /%3E%3Crect x='-40' y='-100' width='80' height='200' rx='40' transform='rotate(45)' stroke='white' stroke-width='48' fill='none' /%3E%3Cg transform='translate(0, 135)'%3E%3Crect x='-12' y='-28' width='24' height='56' rx='12' fill='white' /%3E%3Crect x='-28' y='-12' width='56' height='24' rx='12' fill='white' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+
+  <style>
+    /* Brand Colors */
+    :root {
+      --deep-wine: #4A0E0E;
+      --deep-wine-hover: #360a0a;
+      --bg-light: #fdfcfc;
+      --text-main: #2d2d2d;
+      --text-muted: #666;
+      --white: #ffffff;
+      --border-color: #e0e0e0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-light);
+      background-image: radial-gradient(circle at top right, #f8eeee, transparent);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(74, 14, 14, 0.08);
+      border: 1px solid rgba(74, 14, 14, 0.05);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      color: var(--deep-wine);
+      font-size: 28px;
+      margin: 0 0 10px 0;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--deep-wine);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-color);
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--deep-wine);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(74, 14, 14, 0.05);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: var(--deep-wine);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: var(--deep-wine-hover);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .thank-you {
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .thank-you h1 {
+      font-size: 32px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="formBox">
+  <div class="header">
+    <h1>Arpit - The AI Agent</h1>
+    <p>Submit your details and Experience your Sales Assistent.</p>
+    <p>Will reach out to you for a demo call shortly.</p>
+  </div>
+
+  <form id="leadForm">
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" name="name" placeholder="John Doe" required />
+    </div>
+
+    <div class="form-group">
+      <label>Phone Number *</label>
+      <input type="tel" name="phone" placeholder="+91 00000 00000" required />
+    </div>
+
+    <div class="form-group">
+      <label>Email Address *</label>
+      <input type="email" name="email" placeholder="john@company.com" required />
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input type="text" name="city" placeholder="e.g. Mumbai" />
+    </div>
+
+    <div class="form-group">
+      <label>Website URL</label>
+      <input type="url" name="website" placeholder="https://example.com" />
+    </div>
+
+    <div class="form-group">
+      <label>Business Enquiry</label>
+      <textarea name="enquiry" placeholder="How can Arpit help your business?"></textarea>
+    </div>
+
+    <button type="submit" id="submitBtn">Request AI Call Now</button>
+  </form>
+</div>
+
+<div class="container thank-you" id="thankYouBox">
+  <div style="font-size: 50px; margin-bottom: 20px;">🍷</div>
+  <h1>Thank You!</h1>
+  <p>Your request has been sent successfully.<br>Arpit will be calling you shortly..</p>
+</div>
+
+<script>
+  const form = document.getElementById("leadForm");
+  const formBox = document.getElementById("formBox");
+  const thankYouBox = document.getElementById("thankYouBox");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    // UI Loading State
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Connecting to Arpit...";
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://control.creativplus.in/webhook-test/arpit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        formBox.style.display = "none";
+        thankYouBox.style.display = "block";
+      } else {
+        alert("Something went wrong. Please try again.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Request AI Call Now";
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Network error. Please check your connection.");
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Request AI Call Now";
+    }
+  });
+</script>
+
+</body>
+</html>
